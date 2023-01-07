@@ -1,0 +1,66 @@
+#sanitize tridactyllocal tridactylsync
+
+#Settings
+colorscheme base16-dracula
+set searchengine duckduckgo
+set editorcmd start code
+set newtabfocus page
+set smoothscroll true
+set allowautofocus false
+set hintfiltermode vimperator-reflow
+set hintnames short
+set hintchars 1234567890
+set hintdelay 300
+set incsearch true
+
+#Major Binds
+bind --mode=normal i mode ignore
+bind --mode=ignore <Escape> mode normal
+#unbind --mode=ex <C-a>
+#unbind --mode=ex <C-c>
+#unbind --mode=ex <C-v>
+unbind <C-a>
+unbind <C-c>
+unbind <C-v>
+unbind <C-x>
+unbind <F1>
+bind J tabnext
+bind K tabprev
+bind gf hint -qb
+bind gF viewsource
+bind gd tabdetach
+bind gD composite tabduplicate; tabdetach
+bind - zoom -10 true
+bind = zoom +10 true
+bind _ zoom 1
+bind + zoom 0.5
+bind ZZ composite sanitise tridactyllocal; qall
+
+#Yanks
+bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
+bind yr rssexec
+bind Y hint -p
+
+#Finds
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+
+bind --mode=visual t composite js document.getSelection().toString() | fillcmdline tabopen
+
+command hint_focus hint -;
+bind c hint -Jc [class*="expand"],[class="togg"],[class="comment_folder"]
+bind C composite hint_focus; !s xdotool key Menu
+
+command translate js let googleTranslateCallback = document.createElement('script'); googleTranslateCallback.innerHTML = "function googleTranslateElementInit(){ new google.translate.TranslateElement(); }"; document.body.insertBefore(googleTranslateCallback, document.body.firstChild); let googleTranslateScript = document.createElement('script'); googleTranslateScript.charset="UTF-8"; googleTranslateScript.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&tl=&sl=&hl="; document.body.insertBefore(googleTranslateScript, document.body.firstChild);
+autocmd DocLoad twitter.com urlmodify -t twitter.com nitter.net
+
+bindurl reddit.com gu urlparent 3
+
+bindurl duckduckgo.com f hint -Jc [class~=result__a]
+bindurl duckduckgo.com F hint -Jbc [class~=result__a]
+
+bindurl youtu((\.be)|(be\.com)) f hint -Jc [class~=yt-simple-endpoint]
+bindurl youtu((\.be)|(be\.com)) F hint -Jbc [class~=yt-simple-endpoint]
+bindurl youtu((\.be)|(be\.com)) gf hint -qbJc [id~=video-title]
