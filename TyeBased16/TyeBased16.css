@@ -1,5 +1,12 @@
+/**
+ * @name TyeBased16
+ * @version 1.0
+ * @author Tyecon#8651
+ * @description A Dark Theme Based on Dracula, Base16
+ * @source https://github.com/Tyecon/dotfiles/TyeBased16
+*/
+
 :root {
-    /* TyeBased16 (Dracula Inspired) */
     /** Background: rgb(10, 2, 22) */
     --base00: #0A0216;
     /** Window: rgb(25, 26, 33) */
