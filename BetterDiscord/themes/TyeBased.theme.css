@@ -1,0 +1,50 @@
+/**
+ * @name TyeBased
+ * @version 1.0
+ * @author Tyecon#8651
+ * @authorId
+ * @description A Dark Theme Based on Dracula, Base16, and Ultra
+ * @source https://github.com/Tyecon/dotfiles/TyeBased16
+*/
+
+:root,
+.theme-dark {
+    --text-normal: var(--base07);
+    --text-muted: var(--base06);
+    --text-link: var(--base0D);
+    --text-positive: #50dc7d;
+    --text-warning: #8d4949;
+    --text-danger: #8d4949;
+    --text-brand: #6e6af6;
+    --interactive-normal: #b9bbbe;
+    --interactive-hover: #dcddde;
+    --interactive-active: #c9ced0;
+    --interactive-muted: #4f545c;
+    --background-primary: #101014;
+    --background-secondary: #17161b;
+    --background-secondary-alt: #17161b;
+    --background-tertiary: #101014;
+    --background-accent: #4f545c;
+    --background-floating: #17161b;
+    --modal-background: #101014;
+    --channeltextarea-background: #17161b;
+    --info-positive-text: #fff;
+    --info-warning-text: #fff;
+    --info-warning-foreground: #6e6af6;
+    --info-danger-text: #fff;
+    --info-help-text: #fff;
+    --status-warning-text: #000;
+    --background-mentioned: #6f6af62c;
+    --background-mentioned-hover: #6f6af615;
+    --background-message-hover: rgba(4, 4, 5, 0.07);
+    --scrollbar-auto-thumb: #6e6af6;
+    --brand-experiment: #6e6af6;
+    --brand-experiment-hover: #6f6af64d;
+    --brand-experiment-560: #6e6af6;
+    --channels-default: #4a4a52;
+    --selected-indicator: #97ffa5;
+    --hover-indicator: #ffffff;
+    --font: "Roboto";
+    --code-font: "Fira Code";
+    --boost-bar: none;
+}
