@@ -9,5 +9,11 @@
             "window": true,
             "editor": false
         }
+    },
+    "addonlistControls": {
+        "theme": {
+            "view": "list",
+            "sort": "name"
+        }
     }
 }

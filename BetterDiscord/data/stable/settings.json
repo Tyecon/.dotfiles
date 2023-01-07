@@ -10,7 +10,7 @@
         "editAction": "system"
     },
     "customcss": {
-        "customcss": true,
+        "customcss": false,
         "liveUpdate": true,
         "openAction": "system"
     },

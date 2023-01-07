@@ -1,3 +1,12 @@
+/**
+ * @author Tyecon#8651
+ * @description Tye's Firefox Config
+ * @source https://github.com/Tyecon/.dotfiles/Firefox/userChrome.css
+*/
+
+@import url("https://tyecon.github.io/.dotfiles/TyeBased16/TyeBased16.css");
+
+
 :root {
     font-family: Roboto;
     font-size: 14;
@@ -26,8 +35,8 @@
 
 tooltip {
     -moz-appearance: none !important;
-    color: #F5F5FA !important;
-    border-color: #6570a2 !important;
+    color: var(--base07) !important;
+    border-color: var(--base06) !important;
 }
 
 #window {

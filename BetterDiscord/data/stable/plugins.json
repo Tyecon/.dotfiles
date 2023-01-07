@@ -1,6 +1,6 @@
 {
     "RemoveChatButtons": true,
-    "ZeresPluginLibrary": false,
+    "ZeresPluginLibrary": true,
     "OldTitleBar": false,
     "BDFDB": false,
     "CollapsibleUI": false

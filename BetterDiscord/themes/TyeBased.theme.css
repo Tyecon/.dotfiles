@@ -1,49 +1,50 @@
 /**
  * @name TyeBased
- * @version 1.0
  * @author Tyecon#8651
- * @authorId
  * @description A Dark Theme Based on Dracula, Base16, and Ultra
+ * @version 1.0
  * @source https://github.com/Tyecon/dotfiles/TyeBased16
 */
+
+@import url("https://tyecon.github.io/.dotfiles/TyeBased16/TyeBased16.css");
 
 :root,
 .theme-dark {
     --text-normal: var(--base07);
     --text-muted: var(--base06);
     --text-link: var(--base0D);
-    --text-positive: #50dc7d;
-    --text-warning: #8d4949;
-    --text-danger: #8d4949;
-    --text-brand: #6e6af6;
-    --interactive-normal: #b9bbbe;
-    --interactive-hover: #dcddde;
-    --interactive-active: #c9ced0;
-    --interactive-muted: #4f545c;
-    --background-primary: #101014;
-    --background-secondary: #17161b;
-    --background-secondary-alt: #17161b;
-    --background-tertiary: #101014;
-    --background-accent: #4f545c;
-    --background-floating: #17161b;
-    --modal-background: #101014;
-    --channeltextarea-background: #17161b;
-    --info-positive-text: #fff;
-    --info-warning-text: #fff;
-    --info-warning-foreground: #6e6af6;
-    --info-danger-text: #fff;
-    --info-help-text: #fff;
-    --status-warning-text: #000;
+    --text-positive: var(--base0B);
+    --text-warning: var(--base09);
+    --text-danger: var(--base08);
+    --text-brand: var(--base0D);
+    --interactive-normal: var(--base07);
+    --interactive-hover: var(--base07);
+    --interactive-active: var(--base07);
+    --interactive-muted: var(--base06);
+    --background-primary: var(--base03);
+    --background-secondary: var(--base02);
+    --background-secondary-alt: var(--base01);
+    --background-tertiary: var(--base01);
+    --background-accent: var(--base02);
+    --background-floating: var(--base01);
+    --modal-background: var(--base01);
+    --channeltextarea-background: var(--base04);
+    --info-positive-text: var(--base07);
+    --info-warning-text: var(--base07);
+    --info-warning-foreground: var(--base0D);
+    --info-danger-text: var(--base07);
+    --info-help-text: var(--base07);
+    --status-warning-text: var(--base00);
     --background-mentioned: #6f6af62c;
     --background-mentioned-hover: #6f6af615;
-    --background-message-hover: rgba(4, 4, 5, 0.07);
-    --scrollbar-auto-thumb: #6e6af6;
-    --brand-experiment: #6e6af6;
+    --background-message-hover: #var(--base03);
+    --scrollbar-auto-thumb: var(--base06);
+    --brand-experiment: var(--base0D);
     --brand-experiment-hover: #6f6af64d;
-    --brand-experiment-560: #6e6af6;
-    --channels-default: #4a4a52;
-    --selected-indicator: #97ffa5;
-    --hover-indicator: #ffffff;
+    --brand-experiment-560: var(--base0D);
+    --channels-default: var(--base07);
+    --selected-indicator: var(--base0B);
+    --hover-indicator: var(--base0F);
     --font: "Roboto";
     --code-font: "Fira Code";
     --boost-bar: none;
