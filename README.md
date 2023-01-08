@@ -18,7 +18,7 @@ Personal Configuration Files
   > Remove Existing Folder
 
     Windows:
-    cmd /c mklink /d %APPDATA%\BetterDiscord .\BetterDiscord
+    cmd /c mklink /J %APPDATA%\BetterDiscord .\BetterDiscord
 
     Unix:
     ln -s {BetterDiscord Path} ~/.dotfiles/BetterDiscord
@@ -47,10 +47,10 @@ Personal Configuration Files
 > about:profiles > Open Folder > \chrome\ > Remove userChrome.css > Copy that path for Link Command
 
     Windows:
-    cmd /c mklink /h {FIREFOX-CSS-PATH} .\Firefox\userChrome.css
+    cmd /c mklink /H {FIREFOX-CSS-PATH} .\Firefox\userChrome.css
 
     Example:
-    cmd /c mklink C:\Users\Tyecon\AppData\Roaming\mozilla\firefox\profiles\bwulq044.default-release\chrome\userChrome.css C:\Users\Tyecon\Documents\.dotfiles\Firefox\userChrome.css
+    cmd /c mklink /H C:\Users\Tyecon\AppData\Roaming\mozilla\firefox\profiles\bwulq044.default-release\chrome\userChrome.css C:\Users\Tyecon\Documents\.dotfiles\Firefox\userChrome.css
 
     Unix:
     ln {FIREFOX-CSS-PATH} ~/.dotfiles/Firefox/userChrome.css
