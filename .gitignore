@@ -1,2 +1,10 @@
 /BetterDiscord/data/*
 !/BetterDiscord/data/stable
+
+#Zsh Config, while ignoring temp caches
+/zsh/.config/zsh/*
+!/zsh/.config/zsh/.zshenv
+!/zsh/.config/zsh/.zprofile
+!/zsh/.config/zsh/.zshrc
+!/zsh/.config/zsh/.zlogin
+!/zsh/.config/zsh/.zlogout
