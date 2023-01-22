@@ -58,37 +58,3 @@ Personal Configuration Files
 ### TreeStyleTabs
 
 > about:addons > Tree Style Tabs > Options > Advanced > Load From File > treestyletab.css
-
-### Tridactyl
-
-TODO: tridactylrc
-
----
-
-## Editors
-
-### VSCode
-
-TODO: Sync Share
-
-### Vim
-
-TODO: .vimrc
-
-### Emacs
-
-TODO: .emacs.d
-
----
-
-## Shell
-
-> <https://guinuxbr.com/en/posts/zsh+oh-my-zsh+starship/>
-
-### tmux
-
-### zsh
-
-### p10k
-
-### starship
