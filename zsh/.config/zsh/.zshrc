@@ -20,9 +20,7 @@ plugins=(
     systemd
     archlinux
     emacs
-    tmux
 )
-ZSH_TMUX_AUTOSTART=true
 ZSH_THEME="powerlevel10k/powerlevel10k"
 source $ZSH/oh-my-zsh.sh
 
