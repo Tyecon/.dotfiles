@@ -13,7 +13,7 @@
 (home-environment
   ;; Below is the list of packages that will show up in your
   ;; Home profile, under ~/.guix-home/profile.
-  (packages (specifications->packages (list "font-nerd-fonts"
+  (packages (specifications->packages (list "font-fira-code"
                                             "guile-colorized"
                                             "guile-readline"
                                             "guile"
