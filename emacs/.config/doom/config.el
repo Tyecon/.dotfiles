@@ -1,47 +1,123 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
-;;       user-mail-address "john@doe.com")
-
-;; Doom exposes five (optional) variables for controlling fonts in Doom:
-;;
-;; - `doom-font' -- the primary font to use
-;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
-;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;; - `doom-symbol-font' -- for symbols
-;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq default-directory "~/Documents/")
+(setq doom-file-name-case 'capitalize)
+(setq-default tab-width 4)
+(setq-default evil-shift-width 4)
+(setq-default shift-select-mode t)
+(setq-default pc-selection-mode t)
 (setq display-line-numbers-type t)
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14 :weight 'normal))
+(setq doom-variable-pitch-font (font-spec :family "Roboto" :size 14 :weight 'normal))
+(setq doom-theme 'doom-dracula)
+(custom-set-faces
+ '(org-link ((t (:underline nil)))))
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq initial-frame-alist '((left-fringe . 0) (right-fringe . 0)))
+(setq default-frame-alist '(
+    (left . 1280)
+    (top . 30)
+    (width . 142)
+    (height . 41)
+    (internal-border-width . 1)
+    (drag-internal-border . 1)
+    (user-position . t)
+    (undecorated . t)))
 
+(setq dired-find-subdir t) ;stop making new buffers
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
+
+(use-package-hook! evil
+  :pre-init
+    (setq evil-respect-visual-line-mode t))
+
+(after! treemacs
+  (if (eq system-type 'windows-nt)
+      (setq treemacs-python-executable "C:\\Python312\\python.exe")
+      (setq treemacs-python-executable "/usr/bin/python.exe"))
+)
+
+(after! ispell
+    (setq ispell-program-name "hunspell")
+    (setq ispell-dictionary "en_CA")
+    (setq ispell-hunspell-dict-paths-alist
+        '(("en_CA" "C:\\Hunspell\\en_CA.aff")
+          ("en_CA" "/usr/share/hunspell")))
+)
+
+(after! markdown-live-preview
+  '(progn
+     (setq markdown-live-preview-window-location 'right)))
+
+;;ORG ROAM
+(setq org-directory "~/Documents/Notes/")
+(setq org-roam-directory "~/Documents/Notes")
+(setq org-roam-dailies-directory "~/Documents/Notes/Journal")
+(setq org-agenda-files '("~/Documents/Notes/Journal"))
+(setq org-roam-completion-everywhere t)
+
+(setq org-roam-capture-templates
+       '(("f" "Fleeting" plain (file "./Roaming/Fleeting.org")
+           :if-new (file "./Roaming/${title}.org")
+           :immediate-finish t
+           :jump-to-captured t
+           :unnarrowed f)
+         ("r" "Reference" plain (file "./References/Reference.org")
+           :if-new (file "./References/${title}.org")
+           :immediate-finish t
+           :jump-to-captured t
+           :unnarrowed f)
+         ("m" "Map of Content" plain (file "./Concepts/MOP.org")
+           :if-new (file "./Concepts/${title}.org")
+           :immediate-finish t
+           :jump-to-captured t
+           :unnarrowed f)
+        ))
+
+(setq org-roam-dailies-capture-templates
+       '(("j" "Journal" plain " %?"
+          :target (file+datetree "%<%Y>.org" day)
+          :immediate-finish t
+          :jump-to-captured f
+          :unnarrowed t)
+         ("d" "Dream" entry "%<%d-%b-%Y>\n%?"
+          :if-new (file+datetree "Dreams.org" day)
+          :immediate-finish t
+          :jump-to-captured t
+          :unnarrowed f)
+        ))
+
+(after! citar
+    (setq citar-bibliography '("~/Documents/Notes/References/Zotero.bib"))
+    (setq citar-notes-paths '("~/Documents/Notes/References"))
+    (setq citar-file-note-extensions '("org" "md"))
+    (setq citar-notes-template "")
+    (setq bibtex-completion-bibliogrpahy citar-bibliography))
+
+(use-package! websocket
+  :after org-roam)
+
+(use-package! org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
+
+(defun org-wikipedia-link ()
+  "Replace the selected text or word at point with a Wikipedia link."
+  (interactive)
+  (let* ((word (if (use-region-p)
+                   (buffer-substring (region-beginning) (region-end))
+                 (thing-at-point 'word)))
+         (word (if word (replace-regexp-in-string " " "_" word)
+                  (read-string "Enter the word: "))))
+        (when word
+            (if (use-region-p)
+                (delete-active-region)
+                (progn (kill-word 1)))
+            (insert (format "[[%s][Wikipedia]]" (concat "https://en.wikipedia.org/wiki/" word))))))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
