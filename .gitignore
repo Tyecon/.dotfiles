@@ -1,6 +1,3 @@
-/BetterDiscord/data/*
-!/BetterDiscord/data/stable
-
 #Zsh Config, while ignoring temp caches
 /zsh/.config/zsh/*
 !/zsh/.config/zsh/.zshenv
