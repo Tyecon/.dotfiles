@@ -37,7 +37,7 @@
                       (service spice-vdagent-service-type))
                       (operating-system-user-services base-system)))
 
-  (packages (append (list (specification->package "qemu-guest-agent")
+  (packages (append (list
 
                           ;; Emacs and development tools
                           (specification->package "emacs")
@@ -47,7 +47,6 @@
                           (specification->package "sqlite")
                           (specification->package "shellcheck") ; Shell linting
                           (specification->package "hunspell")   ; Spell check
-                          (specification->package "editorconfig")
                           (specification->package "markdown")
 
                           ;; Xorg and EXWM
@@ -79,6 +78,5 @@
                           (specification->package "usbutils")
                           (specification->package "openocd")
                           (specification->package "gdb")
-                          (specification->package "gcc-arm-none-eabi")
                           (specification->package "picocom"))
                     (operating-system-packages base-system))))

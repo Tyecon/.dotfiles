@@ -5,7 +5,8 @@
 
 (define-module (config systems users)
   #:use-module (gnu system accounts)
-  #:use-module (gnu packages shells #:select (zsh))
+  #:use-module (guix gexp)
+  #:use-module (gnu packages shells)
   #:export (tyecon nick server vagrant))
 
 ;;; Primary Personal Account
