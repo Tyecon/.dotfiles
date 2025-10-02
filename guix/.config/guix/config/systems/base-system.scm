@@ -5,22 +5,23 @@
 
 (define-module (config systems base-system)
   #:use-module (gnu)
-  #:use-module (gnu system operating-system)
+  #:use-module (gnu system)
   #:use-module (gnu system keyboard)
   #:use-module (gnu system file-systems) ; Provides file-system-file
   #:use-module (gnu services admin)      ; Provides nscd-service-type
-  #:use-module (gnu services sysinit)    ; Provides microcode-update-service-type
   #:use-module (gnu services networking) ; Provides iwd-service-type
   #:use-module (gnu services desktop)    ; Provides rtkit-daemon-service-type
-  #:use-module (gnu services linux)      ; Provides fq-scheduler-service-type, encrypted-swap-service-type
-  #:use-module ((nonguix packages linux) #:select (linux-xanmod)) ; kernel
-  #:use-module ((nonguix packages linux-initrd) #:select (microcode-initrd)) ; initrd
+  #:use-module (gnu services linux)      ; Provides fq-scheduler-service-type
+  #:use-module ((nongnu packages linux) #:select (linux-xanmod)) ; kernel
+  #:use-module ((nongnu system linux-initrd) #:select (microcode-initrd)) ; initrd
   #:export (base-system))
 
 (define base-system
   (operating-system
     (kernel linux-xanmod)
     (initrd microcode-initrd)
+
+    (host-name "bass") ; Override
 
     (bootloader (bootloader-configuration
       (bootloader grub-efi-bootloader)
@@ -30,13 +31,11 @@
     (timezone "America/Toronto")
     (keyboard-layout (keyboard-layout "us" "altgr-intl"))
 
+    ;; Encrypted Swap File
+
     ;; Multi-System wide services
     (services (modify-services
       (append (list
-        (service encrypted-swap-service-type
-          (list (encrypted-swap-file
-            (file "/swapfile")
-            (size (* 8 1024 1024 1024))))) ; 8GB Encrypted Swap
         (service iwd-service-type) ; Networking
         (service microcode-update-service-type) ; CPU updates
         (service rtkit-daemon-service-type) ; Low latency
@@ -55,13 +54,13 @@
     ;; Multi-System wide packages
     (packages (append
       (map specification->package '(
-        "dbus-run-session" ; D-Bus application launcher
         "util-linux" ; lsblk, fdisk, etc.
         "usb-modeswitch" ; USB compatibility
         "ethtool" ; Network tuning
         "wget" ; Download
         "curl" ; Download
         "git" ; Download
+        "openssh" ; For git to work
         "gnupg" ; Encryption
         "htop" ; Process viewer
         "lm-sensors" ; Hardware monitoring

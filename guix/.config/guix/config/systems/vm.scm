@@ -3,19 +3,18 @@
 ;;; Inherits from base-system and users.
 
 (define-module (config systems vm)
-  #:use-modules (gnu)
-  #:use-modules (gnu system accounts)
-  #:use-modules (gnu services desktop)
-  #:use-modules (gnu packages embedded)
-  #:use-modules (gnu packages flashing-tools)
-  #:use-modules (gnu packages python)
-  #:use-modules (gnu packages python-xyz)
-  #:use-modules (gnu packages node)
-  #:use-modules (gnu packages shells)
-  #:use-modules (gnu services virtualization)
-  #:use-modules (config systems base-system)
-  #:use-modules (config systems users)
-  #:export (vm-system))
+  #:use-module (gnu)
+  #:use-module (gnu system accounts)
+  #:use-module (gnu services desktop)
+  #:use-module (gnu packages embedded)
+  #:use-module (gnu packages flashing-tools)
+  #:use-module (gnu packages python)
+  #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages node)
+  #:use-module (gnu packages shells)
+  #:use-module (gnu services virtualization)
+  #:use-module (config systems base-system)
+  #:use-module (config systems users))
 
 (define vm-system
   (operating-system
@@ -81,3 +80,4 @@
                         (specification->package "openocd")
                         (specification->package "gdb")
                         (specification->package "picocom"))))))
+vm-system
