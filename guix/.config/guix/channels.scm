@@ -1,3 +1,5 @@
+;;; -*- mode: scheme; coding: utf-8 -*-
+;;; Guix System Configuration Channels
 (list
   (channel
     (name 'guix)

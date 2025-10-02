@@ -1,0 +1,78 @@
+;;; -*- mode: scheme; coding: utf-8 -*-
+;;; base-system.scm --- Abstract System Configuration Template
+;;; Defines common configuration elements shared across multiple systems.
+;;; Child configs must provide: host-name, file-systems, users.
+
+(define-module (config systems base-system)
+  #:use-module (gnu)
+  #:use-module (gnu system operating-system)
+  #:use-module (gnu system keyboard)
+  #:use-module (gnu system file-systems) ; Provides file-system-file
+  #:use-module (gnu services admin)      ; Provides nscd-service-type
+  #:use-module (gnu services sysinit)    ; Provides microcode-update-service-type
+  #:use-module (gnu services networking) ; Provides iwd-service-type
+  #:use-module (gnu services desktop)    ; Provides rtkit-daemon-service-type
+  #:use-module (gnu services linux)      ; Provides fq-scheduler-service-type, encrypted-swap-service-type
+  #:use-module ((nonguix packages linux) #:select (linux-xanmod)) ; kernel
+  #:use-module ((nonguix packages linux-initrd) #:select (microcode-initrd)) ; initrd
+  #:export (base-system))
+
+(define base-system
+  (operating-system
+    (kernel linux-xanmod)
+    (initrd microcode-initrd)
+
+    (bootloader (bootloader-configuration
+      (bootloader grub-efi-bootloader)
+      (targets (list "/boot/efi"))))
+
+    (locale "en_CA.utf8")
+    (timezone "America/Toronto")
+    (keyboard-layout (keyboard-layout "us" "altgr-intl"))
+
+    ;; Multi-System wide services
+    (services (modify-services
+      (append (list
+        (service encrypted-swap-service-type
+          (list (encrypted-swap-file
+            (file "/swapfile")
+            (size (* 8 1024 1024 1024))))) ; 8GB Encrypted Swap
+        (service iwd-service-type) ; Networking
+        (service microcode-update-service-type) ; CPU updates
+        (service rtkit-daemon-service-type) ; Low latency
+        (service nscd-service-type) ; Caching
+        (service fq-scheduler-service-type) ; IO speed hack
+      ) %base-services) ; mingetty, syslogd, udevd, etc.
+      (guix-service-type config => (guix-configuration
+        (inherit config)
+        (substitute-urls
+	        (append (list "https://substitutes.nonguix.org")
+	          %default-substitute-urls))
+        (authorized-keys (append (list
+            (plain-file "non-guix.pub" "(public-key (ecc (curve Ed25519) (q #C1FD53E5D4CE971933EC50C9F307AE2171A2D3B52C804642A7A35F84F3A4EA98#)))"))
+            %default-authorized-guix-keys))))))
+
+    ;; Multi-System wide packages
+    (packages (append
+      (map specification->package '(
+        "dbus-run-session" ; D-Bus application launcher
+        "util-linux" ; lsblk, fdisk, etc.
+        "usb-modeswitch" ; USB compatibility
+        "ethtool" ; Network tuning
+        "wget" ; Download
+        "curl" ; Download
+        "git" ; Download
+        "gnupg" ; Encryption
+        "htop" ; Process viewer
+        "lm-sensors" ; Hardware monitoring
+        "micro" ; Text editor
+        "glibc-locales" ; Locales
+        "zsh" ; Shell
+        "font-gnu-freefont" ; Open Unicode font
+        "font-openmoji" ; Open Emojis
+        "font-awesome" ; Icons
+        "font-google-noto" ; Comprehensive Unicode support
+        "font-google-noto-emoji" ; Color emojis
+        "font-liberation" ; PDF & Documents
+        "font-dejavu" ; PDF & Documents
+      )) %base-packages)))) ; core-utils, nss-certs, etc.
