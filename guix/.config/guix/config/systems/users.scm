@@ -16,8 +16,8 @@
       (group "users")
       (comment "Personal")
       (home-directory "/home/tyecon")
-      ;; Groups: sudo, networking, video, audio, firmware, input, virtualization
-      (supplementary-groups '("wheel" "netdev" "video" "audio" "plugdev" "input" "kvm"))
+      ;; Groups: sudo, networking, video, audio, input, virtualization
+      (supplementary-groups '("wheel" "netdev" "video" "audio" "input" "kvm"))
       (shell (file-append zsh "/bin/zsh"))))
 
 ;;; Secondary Professional Account
@@ -27,7 +27,7 @@
       (group "users")
       (comment "Professional")
       (home-directory "/home/nick")
-      (supplementary-groups '("wheel" "netdev" "video" "audio" "plugdev" "input" "kvm"))
+      (supplementary-groups '("wheel" "netdev" "video" "audio" "input" "kvm"))
       (shell (file-append zsh "/bin/zsh"))))
 
 ;;; Server Account
@@ -47,5 +47,5 @@
       (group "users")
       (comment "VM User")
       (home-directory "/home/vagrant")
-      (supplementary-groups '("wheel" "netdev" "dialout" "plugdev"))
+      (supplementary-groups '("wheel" "netdev" "dialout"))
       (shell (file-append zsh "/bin/zsh"))))

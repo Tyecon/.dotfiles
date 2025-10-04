@@ -10,15 +10,14 @@
   #:use-module (gnu system file-systems) ; Provides file-system-file
   #:use-module (gnu services admin)      ; Provides nscd-service-type
   #:use-module (gnu services networking) ; Provides iwd-service-type
-  #:use-module (gnu services desktop)    ; Provides rtkit-daemon-service-type
   #:use-module (gnu services linux)      ; Provides fq-scheduler-service-type
-  #:use-module ((nongnu packages linux) #:select (linux-xanmod)) ; kernel
-  #:use-module ((nongnu system linux-initrd) #:select (microcode-initrd)) ; initrd
+;  #:use-module ((nongnu packages linux) #:select (linux-xanmod)) ; kernel
+;  #:use-module ((nongnu system linux-initrd) #:select (microcode-initrd)) ; initrd
   #:export (base-system))
 
 (define base-system
   (operating-system
-    (kernel linux-xanmod)
+;    (kernel linux-xanmod)
     (initrd microcode-initrd)
 
     (host-name "bass") ; Override
@@ -31,16 +30,16 @@
     (timezone "America/Toronto")
     (keyboard-layout (keyboard-layout "us" "altgr-intl"))
 
-    ;; Encrypted Swap File
+    ;;Placeholder to override
+    (file-systems (list (file-system
+                          (mount-point "/")
+                          (device "tmpfs")
+                          (type "tmpfs"))))
 
     ;; Multi-System wide services
     (services (modify-services
       (append (list
         (service iwd-service-type) ; Networking
-        (service microcode-update-service-type) ; CPU updates
-        (service rtkit-daemon-service-type) ; Low latency
-        (service nscd-service-type) ; Caching
-        (service fq-scheduler-service-type) ; IO speed hack
       ) %base-services) ; mingetty, syslogd, udevd, etc.
       (guix-service-type config => (guix-configuration
         (inherit config)
@@ -57,6 +56,7 @@
         "util-linux" ; lsblk, fdisk, etc.
         "usb-modeswitch" ; USB compatibility
         "ethtool" ; Network tuning
+        "flatpak" ; Nonguix Apps
         "wget" ; Download
         "curl" ; Download
         "git" ; Download
