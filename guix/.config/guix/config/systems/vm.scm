@@ -19,6 +19,13 @@
 
 (operating-system
   (inherit base-system)
+  (firmware '())
+
+  (initrd (lambda (file-systems . rest)
+                  (apply base-initrd file-systems
+                    #:qemu-guest-agent? #t
+                    #:qemu-networking? #t
+                  rest)))
 
   (host-name "Virtguix")
 

@@ -11,14 +11,15 @@
   #:use-module (gnu services admin)      ; Provides nscd-service-type
   #:use-module (gnu services networking) ; Provides iwd-service-type
   #:use-module (gnu services linux)      ; Provides fq-scheduler-service-type
-;  #:use-module ((nongnu packages linux) #:select (linux-xanmod)) ; kernel
-;  #:use-module ((nongnu system linux-initrd) #:select (microcode-initrd)) ; initrd
+  #:use-module ((nongnu packages linux) #:select (linux-xanmod)) ; kernel
+  #:use-module ((nongnu system linux-initrd) #:select (microcode-initrd)) ; initrd
   #:export (base-system))
 
 (define base-system
   (operating-system
-;    (kernel linux-xanmod)
+    (kernel linux-xanmod)
     (initrd microcode-initrd)
+    (kernel-arguments (cons * "preempt=full" %default-kernel-arguments))
 
     (host-name "bass") ; Override
 

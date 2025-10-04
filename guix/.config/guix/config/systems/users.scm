@@ -47,5 +47,5 @@
       (group "users")
       (comment "VM User")
       (home-directory "/home/vagrant")
-      (supplementary-groups '("wheel" "netdev" "dialout"))
+      (supplementary-groups '("wheel" "netdev" "video" "audio" "input" "kvm" "libvirt"))
       (shell (file-append zsh "/bin/zsh"))))
